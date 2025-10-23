@@ -7,6 +7,10 @@ from matplotlib.patches import Circle, Wedge
 import plotly.graph_objects as go
 import plotly.express as px
 
+import warnings
+warnings.filterwarnings("ignore")
+
+
 # Cargar el reporte de hoy
 path='C:/Users/User/Desktop/Cristina/Projects/BI/OUTPUTS/'
 filename=str(datetime.today()).split()[0].replace('-','_')+'Report.csv'
@@ -198,3 +202,4 @@ for i, agent in enumerate(agents):
             st.dataframe(data[data['AE_NAME']==agent],width=2000)  
 
                     
+
