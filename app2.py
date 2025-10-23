@@ -13,7 +13,7 @@ filename=str(datetime.today()).split()[0].replace('-','_')+'Report.csv'
 df=pd.read_csv(filename) 
 st.set_page_config(layout="wide")
 st.title("2025 Performance")
-data=pd.read_csv(path+'growth_retention.csv') 
+data=pd.read_csv('growth_retention.csv') 
 #-------------------------------------------------------------------------------------
 # contracts diagram
 total_2025 = df['2025 contracts'].sum()
@@ -196,4 +196,5 @@ for i, agent in enumerate(agents):
                 st.dataframe(agent_df[['growth ($)', 'growth (%)',]].transpose(),width=200)  
         with st.expander("Dataset"):
             st.dataframe(data[data['AE_NAME']==agent],width=2000)  
+
                     
