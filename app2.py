@@ -7,17 +7,13 @@ from matplotlib.patches import Circle, Wedge
 import plotly.graph_objects as go
 import plotly.express as px
 
-import warnings
-warnings.filterwarnings("ignore")
-
-
 # Cargar el reporte de hoy
 path='C:/Users/User/Desktop/Cristina/Projects/BI/OUTPUTS/'
 filename=str(datetime.today()).split()[0].replace('-','_')+'Report.csv'
 df=pd.read_csv(filename) 
 st.set_page_config(layout="wide")
 st.title("2025 Performance")
-data=pd.read_csv('growth_retention.csv') 
+data=pd.read_csv(path+'growth_retention.csv') 
 #-------------------------------------------------------------------------------------
 # contracts diagram
 total_2025 = df['2025 contracts'].sum()
@@ -45,9 +41,9 @@ cancelled_wedge = Wedge(center=(4.6, inner_center_y), r=inner_radius, theta1=ret
                         facecolor="#F51111", edgecolor='white')
 ax.add_patch(retained_wedge)
 ax.add_patch(cancelled_wedge) 
-ax.text(5, 8.2, f'Total Contracts\n {total_2025}', ha='center', fontsize=8,color='black')
-ax.text(9.35, 5.5, f'Used\n {total_considered}', ha='right', fontsize=8,color='black')
-ax.text(2, 4.5, f'Retained\n{total_retained}', ha='left', fontsize=8,color='white')
+ax.text(5, 7.6, f'Total Contracts TY\n {total_2025}\nTotal Contracts YTD\n {total_considered}', ha='center', fontsize=7.5,color='black')
+# ax.text(9.35, 5.5, f'Used\n {total_considered}', ha='right', fontsize=8,color='black')
+ax.text(2, 4.5, f'Retention Rate\n xx% ({total_retained})  ', ha='left', fontsize=8,color='white')
 ax.text(7.6, 2.4,f'Cancelled\n{total_cancelled}', ha='right', fontsize=8,color='white')  
 #--------------------------------------------------------------------------------------
 # Growth  
@@ -69,23 +65,23 @@ fig_bar.update_layout(
 #-----------------------------------------------------------------------------------------
 figgo = go.Figure(go.Indicator(
     mode="gauge+number+delta",
-    value=df['retention ($)'].sum(),
-    delta={'reference': df['KPI ACV YTD'].sum(), 'increasing': {'color': "green"}},
+    value=round(df['retention ($)'].sum(),1),
+    delta={'reference': round(df['KPI ACV YTD'].sum(),1), 'increasing': {'color': "green"}},
     gauge={
-        'axis': {'range': [None, df['Portfolio ACV'].sum()]},
-        'bar': {'color':'white'},# "#00Ff08"
+        'axis': {'range': [None, round(df['Portfolio ACV'].sum(),1)]},
+        'bar': {'color':'lightgreen'},# "#00Ff08"
         'steps': [
-            {'range': [0, df['KPI ACV YTD'].sum()], 'color': "blue"},
+            {'range': [0,  round(df['KPI ACV YTD'].sum(),1)], 'color': "blue"},
         ],
         'threshold': {
             'line': {'color': "red", 'width': 4},
             'thickness': 1,
-            'value': df['Portfolio ACV'].sum()
+            'value': round(df['Portfolio ACV'].sum(),1)
         },
     },
     
     title={
-            'text': "<b>Retention</b>",
+            'text': "<b>ACV Portfolio Renewal Overview</b>",
             'font': {'size': 25},
             'align': 'left'
         } ))
@@ -200,6 +196,4 @@ for i, agent in enumerate(agents):
                 st.dataframe(agent_df[['growth ($)', 'growth (%)',]].transpose(),width=200)  
         with st.expander("Dataset"):
             st.dataframe(data[data['AE_NAME']==agent],width=2000)  
-
                     
-
