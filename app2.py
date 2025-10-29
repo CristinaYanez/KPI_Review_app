@@ -16,14 +16,14 @@ path='C:/Users/User/Desktop/Cristina/Projects/BI/OUTPUTS/'
 filename=str(datetime.today()).split()[0].replace('-','_')+'retentionReport.csv'
 filename1=str(datetime.today()).split()[0].replace('-','_')+'growthReport.csv'
 filename2=str(datetime.today()).split()[0].replace('-','_')+'revenueReport.csv'
-df=pd.read_csv(path+filename) 
-df1=pd.read_csv(path+filename1) 
-df2=pd.read_csv(path+filename2) 
+df=pd.read_csv( filename) 
+df1=pd.read_csv( filename1) 
+df2=pd.read_csv( filename2) 
 st.set_page_config(layout="wide")
 st.title("2025 Performance")
-retention_data=pd.read_csv(path+'kpi_retention.csv') 
-growth_data=pd.read_csv(path+'kpi_growth.csv') 
-revenue_data=pd.read_csv(path+'kpi_revenue.csv') 
+retention_data=pd.read_csv( 'kpi_retention.csv') 
+growth_data=pd.read_csv( 'kpi_growth.csv') 
+revenue_data=pd.read_csv( 'kpi_revenue.csv') 
 # general charts
 fig1 = px.bar(
     x=['Consider Contracts', '2025 Remaining Contracts'],
@@ -390,3 +390,4 @@ with tabs[2]: #2: revenue
 
     
  
+
