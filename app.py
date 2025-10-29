@@ -15,12 +15,12 @@ import plotly.express as px
 path='C:/Users/User/Desktop/Cristina/Projects/BI/OUTPUTS/'
 filename=str(datetime.today()).split()[0].replace('-','_')+'retentionReport.csv'
 filename1=str(datetime.today()).split()[0].replace('-','_')+'growthReport.csv'
-df=pd.read_csv(path+filename) 
-df1=pd.read_csv(path+filename1) 
+df=pd.read_csv(filename) 
+df1=pd.read_csv(filename1) 
 st.set_page_config(layout="wide")
 st.title("2025 Performance")
-retention_data=pd.read_csv(path+'kpi_retention.csv') 
-growth_data=pd.read_csv(path+'kpi_growth.csv') 
+retention_data=pd.read_csv('kpi_retention.csv') 
+growth_data=pd.read_csv('kpi_growth.csv') 
 # general charts
 fig1 = px.bar(
     x=['Consider Contracts', '2025 Remaining Contracts'],
@@ -376,3 +376,4 @@ with tabs[1]: #1:growth
                 displ.drop(columns=['index'],inplace=True)
                 st.dataframe(displ,width=2000)  
 #------------------------------------------------------------------------------------ 
+
