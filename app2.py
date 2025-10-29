@@ -387,7 +387,12 @@ with tabs[2]: #2: revenue
                 )
                 fig2_2.update_layout(width=400)
                 st.plotly_chart(fig2_2, use_container_width=False)
+            with st.expander(agent+" Dataset"):
+                displ=revenue_data[revenue_data['AE_NAME']==agent].reset_index()
+                displ.drop(columns=['index'],inplace=True)
+                st.dataframe(displ,width=2000)  
 
     
  
+
 
