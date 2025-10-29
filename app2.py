@@ -231,7 +231,7 @@ with tabs[0]: #0:retention
             # show dataset
             with st.expander(agent+" Dataset"):
                 displ=retention_data[retention_data['AE_NAME']==agent].reset_index()
-                displ.drop(columns=['index'],inplace=True)
+                displ.drop(columns=['index','AE_NAME'],inplace=True)
                 st.dataframe(displ,width=2000)  
 #------------------------------------------------------------------------------------ 
 #-------------------------------------------------------------------------------------
@@ -336,7 +336,7 @@ with tabs[1]: #1:growth
             # show dataset
             with st.expander(agent+" Dataset"):
                 displ=growth_data[growth_data['AE_NAME']==agent].reset_index()
-                displ.drop(columns=['index'],inplace=True)
+                displ.drop(columns=['index','AE_NAME'],inplace=True)
                 st.dataframe(displ,width=2000)  
 #------------------------------------------------------------------------------------ 
 with tabs[2]: #2: revenue
@@ -389,10 +389,11 @@ with tabs[2]: #2: revenue
                 st.plotly_chart(fig2_2, use_container_width=False)
             with st.expander(agent+" Dataset"):
                 displ=revenue_data[revenue_data['AE_NAME']==agent].reset_index()
-                displ.drop(columns=['index'],inplace=True)
+                displ.drop(columns=['index','AE_NAME'],inplace=True)
                 st.dataframe(displ,width=2000)  
 
     
  
+
 
 
