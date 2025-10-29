@@ -15,12 +15,15 @@ import plotly.express as px
 path='C:/Users/User/Desktop/Cristina/Projects/BI/OUTPUTS/'
 filename=str(datetime.today()).split()[0].replace('-','_')+'retentionReport.csv'
 filename1=str(datetime.today()).split()[0].replace('-','_')+'growthReport.csv'
-df=pd.read_csv(filename) 
-df1=pd.read_csv(filename1) 
+filename2=str(datetime.today()).split()[0].replace('-','_')+'revenueReport.csv'
+df=pd.read_csv(path+filename) 
+df1=pd.read_csv(path+filename1) 
+df2=pd.read_csv(path+filename2) 
 st.set_page_config(layout="wide")
 st.title("2025 Performance")
-retention_data=pd.read_csv('kpi_retention.csv') 
-growth_data=pd.read_csv('kpi_growth.csv') 
+retention_data=pd.read_csv(path+'kpi_retention.csv') 
+growth_data=pd.read_csv(path+'kpi_growth.csv') 
+revenue_data=pd.read_csv(path+'kpi_revenue.csv') 
 # general charts
 fig1 = px.bar(
     x=['Consider Contracts', '2025 Remaining Contracts'],
@@ -133,21 +136,13 @@ fig5.update_layout(
 )
 
 fig5.add_annotation(
-    text="ACV Retention",
+    text="Retention "+str(round((df['retention ($)'].sum())/(df['KPI ACV YTD'].sum())*100,2))+'% ',
     xref="paper", yref="paper",
-    x=0.8, y=0.4,   
+    x=0.83, y=0.3,   
     showarrow=False,
     font=dict(size=20,color='black'),
     align="center"
-)
-fig5.add_annotation(
-    text='rate: '+str(round((df['retention ($)'].sum())/(df['KPI ACV YTD'].sum())*100,2))+'% ',
-    xref="paper", yref="paper",
-    x=0.8, y=0.25,   
-    showarrow=False,
-    font=dict(size=20,color='black'),
-    align="center"
-)
+) 
 
 
 #------------------------------------------------------------------------------------ 
@@ -183,21 +178,13 @@ with tabs[0]: #0:retention
                 template="plotly_white",
             )  
             fig6.add_annotation(
-                text="ACV Retention",  
+                text="Retention "+str(agent_df['retention ($)%'].values[0])+'%',  
                 xref="paper", yref="paper",
-                x=0.8, y=0.20,  
+                x=0.82, y=0.20,  
                 showarrow=False,
                 font=dict(size=20,color='black'),
                 align="left"
-            )
-            fig6.add_annotation(
-                text= 'rate: '+str(agent_df['retention ($)%'].values[0])+'%',  
-                xref="paper", yref="paper",
-                x=0.79, y=0.10,  
-                showarrow=False,
-                font=dict(size=20,color='black'),
-                align="left"
-            )
+            ) 
             fig6.add_annotation(
                 text="Contracts Retention Rate: "+ str(agent_df['retention (#)%'].values[0])+'%',  
                 xref="paper", yref="paper",
@@ -229,21 +216,13 @@ with tabs[0]: #0:retention
                 template="plotly_white",
             )  
             fig7.add_annotation(
-                text="ACV Retention",  
+                text="SPIF Retention "+ str(agent_df['retentionSPIF ($)%'].values[0])+'%',  
                 xref="paper", yref="paper",
                 x=0.51, y=0.2,   
                 showarrow=False,
                 font=dict(size=20,color='black'),
                 align="left"
-            )
-            fig7.add_annotation(
-                text="SPIF rate: "+ str(agent_df['retentionSPIF ($)%'].values[0])+'%',  
-                xref="paper", yref="paper",
-                x=0.51, y=0.10,   
-                showarrow=False,
-                font=dict(size=20,color='black'),
-                align="left"
-            )
+            ) 
             col1, col2  = st.columns(2)
             with col1:
                 st.plotly_chart(fig6, use_container_width=True)
@@ -304,21 +283,13 @@ fig5_1.update_layout(
     title_font=dict(size=28)
 )
 fig5_1.add_annotation(
-    text="ACV Growth",
+    text="Growth "+str(round((df1['growth ($)'].sum())/(df1['KPI ACV YTD'].sum())*100,2))+'% ',
     xref="paper", yref="paper",
-    x=0.78, y=0.24,   
+    x=0.81, y=0.24,   
     showarrow=False,
     font=dict(size=20,color='black'),
     align="center"
-)
-fig5_1.add_annotation(
-    text='rate: '+str(round((df1['growth ($)'].sum())/(df1['KPI ACV YTD'].sum())*100,2))+'% ',
-    xref="paper", yref="paper",
-    x=0.79, y=0.16,   
-    showarrow=False,
-    font=dict(size=20,color='black'),
-    align="center"
-)
+) 
 #------------------------------------------------------------------------------------ 
 with tabs[1]: #1:growth
     ret_tabs = st.tabs(list(filtered_df['Agent Name'].unique()))  
@@ -353,21 +324,13 @@ with tabs[1]: #1:growth
                 )             
                                 
                 fig6_1.add_annotation(
-                    text="ACV Growth",
+                    text="Growth "+str(round((agent_df1['growth ($)'].sum())/(agent_df1['KPI ACV YTD'].sum())*100,2))+'% ',
                     xref="paper", yref="paper",
-                    x=0.78, y=0.23,   
+                    x=0.81, y=0.23,   
                     showarrow=False,
                     font=dict(size=20,color='black'),
                     align="center"
-                )
-                fig6_1.add_annotation(
-                    text='rate: '+str(round((agent_df1['growth ($)'].sum())/(agent_df1['KPI ACV YTD'].sum())*100,2))+'% ',
-                    xref="paper", yref="paper",
-                    x=0.8, y=0.15,   
-                    showarrow=False,
-                    font=dict(size=20,color='black'),
-                    align="center"
-                )      
+                ) 
                 st.plotly_chart(fig6_1, use_container_width=True)
 
             # show dataset
@@ -376,4 +339,54 @@ with tabs[1]: #1:growth
                 displ.drop(columns=['index'],inplace=True)
                 st.dataframe(displ,width=2000)  
 #------------------------------------------------------------------------------------ 
+with tabs[2]: #2: revenue
+    #bar charts
+    
+    fig1_2 = px.bar(
+        x=['Expected Revenue', 'Actual Revenue'],
+        y=[df2['expected_revenue'].sum(), df2['revenue'].sum()],
+        title='Overall Revenue',
+        color=['Consider Contracts', '2025 Remaining Contracts'],
+        color_discrete_map={
+            'Consider Contracts': "#282aa7",
+            '2025 Remaining Contracts': "#35944E"
+        } ,
+        text=[df2['expected_revenue'].sum(), df2['revenue'].sum()],
+    ) 
+    fig1_2.update_layout(
+        showlegend=False,
+        xaxis_title=None,         
+        yaxis_title=None  
+    )
+    fig1_2.update_layout(width=400)
+    filtered_df2 = df2[df2['AE_NAME'] != 'REASSIGNED']
+    ret_tabs = st.tabs(list(filtered_df2['AE_NAME'].unique()))  
+    for i, agent in enumerate(filtered_df2['AE_NAME']):  
+        with ret_tabs[i]:             
+            agent_df2=df2[df2['AE_NAME']==agent] 
+            col1,col2=st.columns(2)
+            with col1:
+                st.plotly_chart(fig1_2, use_container_width=False,key=agent+'revenue')
 
+            with col2: 
+                fig2_2 = px.bar(
+                    x=['Expected Revenue', 'Actual Revenue'],
+                    y=[agent_df2['expected_revenue'].sum(), agent_df2['revenue'].sum()],
+                    title=' '.join(pd.Series(agent.split()).str.capitalize())+" Revenue",
+                    color=['Consider Contracts', '2025 Remaining Contracts'],
+                    color_discrete_map={
+                        'Consider Contracts': "#282aa7",
+                        '2025 Remaining Contracts': "#35944E"
+                    } ,
+                    text=[agent_df2['expected_revenue'].sum(), agent_df2['revenue'].sum()],
+                ) 
+                fig2_2.update_layout(
+                    showlegend=False,
+                    xaxis_title=None,         
+                    yaxis_title=None  
+                )
+                fig2_2.update_layout(width=400)
+                st.plotly_chart(fig2_2, use_container_width=False)
+
+    
+ 
