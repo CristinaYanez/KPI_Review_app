@@ -361,8 +361,8 @@ with tabs[2]: #2: revenue
         yaxis_title=None  
     )
     fig1_2.update_layout(width=400)
-    # filtered_df = df2[df2['AE_NAME'] != 'REASSIGNED']
-    filtered_df=df2
+    # filtered_df2 = df2[df2['AE_NAME'] != 'REASSIGNED']
+    filtered_df2=df2
     ret_tabs = st.tabs(list(filtered_df2['AE_NAME'].unique()))  
     for i, agent in enumerate(filtered_df2['AE_NAME']):  
         with ret_tabs[i]:             
@@ -397,6 +397,7 @@ with tabs[2]: #2: revenue
 
     
  
+
 
 
 
