@@ -57,7 +57,7 @@ fig2.update_layout(
     )
 )
 fig35 = px.pie(
-    names=['Retained ACV','Cancelled ACV'],
+    names=['Retained ACV','Remaining ACV'],
     values=[df['KPI ACV YTD'].sum(),df['Portfolio ACV'].sum()-df['KPI ACV YTD'].sum()],
     title='YTD Renewal ACV',
     color_discrete_sequence=["#28a745", "#dc3545"]
@@ -394,6 +394,7 @@ with tabs[2]: #2: revenue
 
     
  
+
 
 
 
