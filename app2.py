@@ -86,7 +86,8 @@ tabs = st.tabs(tabs)
 #-------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------
 ######### CONTRACTS DISTRIBUTION for retention #########
-filtered_df = df[df['Agent Name'] != 'REASSIGNED']
+# filtered_df = df[df['Agent Name'] != 'REASSIGNED']
+filtered_df=df
 filtered_df['AM']=filtered_df['Agent Name']  
 melted_df = filtered_df.melt(
     id_vars=['AM', 'KPI ACV YTD'],
@@ -236,7 +237,8 @@ with tabs[0]: #0:retention
 #------------------------------------------------------------------------------------ 
 #-------------------------------------------------------------------------------------
 ######### CONTRACTS DISTRIBUTION for growth #########   
-filtered_df = df1[df1['Agent Name'] != 'REASSIGNED']
+# filtered_df = df1[df1['Agent Name'] != 'REASSIGNED']
+filtered_df=df1
 filtered_df['AM']=filtered_df['Agent Name'] 
 melted_df = filtered_df.melt(
     id_vars=['AM', 'KPI ACV YTD'],
@@ -359,7 +361,8 @@ with tabs[2]: #2: revenue
         yaxis_title=None  
     )
     fig1_2.update_layout(width=400)
-    filtered_df2 = df2[df2['AE_NAME'] != 'REASSIGNED']
+    # filtered_df = df2[df2['AE_NAME'] != 'REASSIGNED']
+    filtered_df=df2
     ret_tabs = st.tabs(list(filtered_df2['AE_NAME'].unique()))  
     for i, agent in enumerate(filtered_df2['AE_NAME']):  
         with ret_tabs[i]:             
@@ -394,6 +397,7 @@ with tabs[2]: #2: revenue
 
     
  
+
 
 
 
