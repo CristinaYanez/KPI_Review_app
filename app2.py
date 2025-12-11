@@ -13,9 +13,9 @@ import plotly.express as px
 #------------------------------------------------------------------------------------ 
 # load today's report
 path='C:/Users/User/Desktop/Cristina/Projects/BI/OUTPUTS/'
-filename=str(datetime.today()).split()[0].replace('-','_')+'retentionReport.csv'
-filename1=str(datetime.today()).split()[0].replace('-','_')+'growthReport.csv'
-filename2=str(datetime.today()).split()[0].replace('-','_')+'revenueReport.csv'
+filename='retentionReport.csv'
+filename1='growthReport.csv'
+filename2='revenueReport.csv'
 df=pd.read_csv( filename) 
 df1=pd.read_csv( filename1) 
 df2=pd.read_csv( filename2) 
@@ -397,6 +397,7 @@ with tabs[2]: #2: revenue
 
     
  
+
 
 
 
